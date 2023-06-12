@@ -1,4 +1,5 @@
 import { IPasswordHash } from "../../../../infra/shared/passwordHash";
+import { IToken } from "../../../../infra/shared/token/token";
 import { IUserRepository } from "../../repository/user.repository";
 
 interface IAuthenticateUser {
@@ -7,7 +8,7 @@ interface IAuthenticateUser {
 }
 
 export class AuthenticateUserUseCase {
-    constructor(private userRepository: IUserRepository, private passwordHash: IPasswordHash){}
+    constructor(private userRepository: IUserRepository, private passwordHash: IPasswordHash, private token: IToken){}
 
     async execute(data: IAuthenticateUser) {
         if (!data.email || !data.password) {
@@ -19,7 +20,8 @@ export class AuthenticateUserUseCase {
         if (user) {
             const isUser = await this.passwordHash.valite(data.password, user.password);
             if (isUser) {
-                return user;
+                const token = this.token.create(user);
+                return {user ,token};
             } else {
                 throw new Error ("Email/password is invalid");
             }
