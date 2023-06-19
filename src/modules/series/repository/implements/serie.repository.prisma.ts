@@ -1,6 +1,5 @@
 import { prismaClient } from "../../../../infra/database/prismaClient";
 import { Series } from "../../entities/series.entity";
-import { Status } from "../../usecases/create-list-wish/create-list-wish.usecase";
 import { SerieRequest } from "../../usecases/update-series/update-series.usecases";
 import { ISerieRepository } from "../serie.repository";
 
@@ -8,7 +7,7 @@ export class SerieRepositoryPrisma implements ISerieRepository {
   async save(serie: Series, image: string ): Promise<any> {
     const platformExists = await prismaClient.platform.findFirst({
       where: {
-        name: serie.platform
+        id: serie.platform
       }
     });
 
@@ -87,6 +86,14 @@ export class SerieRepositoryPrisma implements ISerieRepository {
     });
 
     return result;
+  }
+
+  async deleteSerie(serieId: string): Promise<void> {
+    await prismaClient.series.deleteMany({
+      where: {
+        id: serieId
+      }
+    });
   }
 
 }

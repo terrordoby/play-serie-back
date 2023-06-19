@@ -9,7 +9,6 @@ export class GetAllUserSeriesController {
   async handle(request: Request, response: Response) {
     try {
       const query = request.query.status;
-      console.log(request.query.status, request.body.userId);
       const status = query === "GOSTEI" ? Status.GOSTEI : Status.DESEJO_ASSISTIR ;
       const getAllUserSeries = new GetAllUserSeriesUseCase(this.userRepository, this.serieRepository);
       const result = await getAllUserSeries.execute(request.body.userId, status);

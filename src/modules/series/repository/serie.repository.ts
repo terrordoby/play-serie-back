@@ -6,4 +6,5 @@ export interface ISerieRepository {
   getAll(): Promise<any[]>
   updatedSerie(serie: SerieRequest, id: string, image: string): Promise<any>
   findById(id: string): Promise<Series>
+  deleteSerie(serieId: string): Promise<void>
 }

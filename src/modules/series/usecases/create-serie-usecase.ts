@@ -10,10 +10,10 @@ interface SerieRequest {
 }
 
 export class CreateSerieUseCase {
-    constructor(private serieRepository: ISerieRepository, private image: string){}
-    async execute(data:SerieRequest) {
-        const serie = new Series(data);
-        const createSerieUseCase = await this.serieRepository.save(serie, this.image);
-        return createSerieUseCase;
-    }
+  constructor(private serieRepository: ISerieRepository, private image: string){}
+  async execute(data:SerieRequest) {
+    const serie = new Series(data);
+    const createSerieUseCase = await this.serieRepository.save(serie, this.image);
+    return createSerieUseCase;
+  }
 }

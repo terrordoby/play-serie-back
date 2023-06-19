@@ -3,7 +3,8 @@ import { Status } from "../../../series/usecases/create-list-wish/create-list-wi
 import { IUserRepository } from "../../repository/user.repository";
 
 export class GetAllUserSeriesUseCase {
-  constructor(private userRepository: IUserRepository, private serieRepository: ISerieRepository){}
+  constructor(private userRepository: IUserRepository, private serieRepository: ISerieRepository) {}
+
   async execute(userId: string, status: Status) {
     const userExist = await this.userRepository.findById(userId, status);
 
@@ -20,7 +21,11 @@ export class GetAllUserSeriesUseCase {
       }
     }));
 
-    return series;
+    const uniqueSeries = series.filter((serie, index, self) => {
+      return index === self.findIndex((s) => s.id === serie.id);
+    });
 
+    return uniqueSeries;
   }
 }
+

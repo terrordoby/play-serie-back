@@ -11,5 +11,5 @@ app.use(cors);
 app.use(router);
 
 app.listen(3001, () => {
-    console.log("Server rodando");
+  console.log("Server rodando");
 });

@@ -13,10 +13,10 @@ interface IUserOnSerie {
 }
 
 export class CreateListWishUsecase {
-    constructor(private userOnSerie: IUserOnSerieRepository){}
-    async execute(data: IUserOnSerie) {
-        const userOnSerie = new UserOnSerie(data);
-        const result = await this.userOnSerie.save(userOnSerie);
-        return result;
-    }
+  constructor(private userOnSerie: IUserOnSerieRepository){}
+  async execute(data: IUserOnSerie) {
+    const userOnSerie = new UserOnSerie(data);
+    const result = await this.userOnSerie.save(userOnSerie);
+    return result;
+  }
 }
